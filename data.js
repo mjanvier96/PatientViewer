@@ -140,17 +140,19 @@ function type(d) {
 }
 
 function loadDemographics(){
-    
-    
-    document.getElementById("age").innerHTML += "test";  
-    document.getElementById("gender").innerHTML += "test";
-    document.getElementById("ethinicty").innerHTML += "test";
-    document.getElementById("height-weight").innerHTML += "test";
+    d3.csv("HeartRateData.csv", type, function (error, data) {
+    d3.extent(data, function(d) {
+    document.getElementById("ethinicty").innerHTML += d.ethnicity[0];
     document.getElementById("subjectID").innerHTML += "test";
     document.getElementById("adminType").innerHTML += "test";
     document.getElementById("adminSource").innerHTML += "test";
     document.getElementById("stayPeriod").innerHTML += "test";
     document.getElementById("insuranceType").innerHTML += "test";
-    document.getElementById("SAP").innerHTML += "test";
+    document.getElementById("SAP").innerHTML += "test";                                
+    });}
+           
+    document.getElementById("age").innerHTML += "N/A";  
+    document.getElementById("gender").innerHTML += "N/A";
+    document.getElementById("height-weight").innerHTML += "N/A";
     return;
 }
