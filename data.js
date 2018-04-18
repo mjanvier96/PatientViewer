@@ -5,7 +5,7 @@ var svg = d3.selectAll("svg"),
     height = +svg.attr("height") - margin.top - margin.bottom,
     height2 = +svg.attr("height") - margin2.top - margin2.bottom;
 
-var parseDate = d3.timeParse("%m/%d/%Y %H:%M");
+var parseDate = d3.timeParse("%Y-%m-%d/%H:%M:%S");
 
 var x = d3.scaleTime().range([0, width]),
     x2 = d3.scaleTime().range([0, width]),
@@ -134,13 +134,14 @@ function zoomed() {
 }
 
 function type(d) {
-    var parseDate = d3.timeParse("%m/%d/%Y %H:%M");
   d.date = parseDate(d.date);
   d.bpm = +d.bpm;
   return d;
 }
 
 function loadDemographics(){
+    
+    
     document.getElementById("age").innerHTML += "test";  
     document.getElementById("gender").innerHTML += "test";
     document.getElementById("ethinicty").innerHTML += "test";
