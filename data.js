@@ -1,6 +1,6 @@
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 110, left: 40},
-    margin2 = {top: 430, right: 20, bottom: 30, left: 40},
+var svg = d3.selectAll("svg"),
+    margin = {top: 10, right: 20, bottom: 90, left: 40},
+    margin2 = {top: 130, right: 20, bottom: 30, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     height2 = +svg.attr("height") - margin2.top - margin2.bottom;
@@ -57,7 +57,11 @@ var context = svg.append("g")
     .attr("class", "context")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-d3.csv("dataOriginal.csv", type, function (error, data) {
+function loadData(){
+    loadDemographics();
+
+
+d3.csv("HeartRateData.csv", type, function (error, data) {
   if (error) throw error;
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
@@ -105,8 +109,10 @@ d3.csv("dataOriginal.csv", type, function (error, data) {
 
 
   console.log(data);
+    return;
 });
 
+}
 function brushed() {
   if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
   var s = d3.event.selection || x2.range();
@@ -128,7 +134,22 @@ function zoomed() {
 }
 
 function type(d) {
+    var parseDate = d3.timeParse("%m/%d/%Y %H:%M");
   d.date = parseDate(d.date);
   d.bpm = +d.bpm;
   return d;
+}
+
+function loadDemographics(){
+    document.getElementById("age").innerHTML += "test";  
+    document.getElementById("gender").innerHTML += "test";
+    document.getElementById("ethinicty").innerHTML += "test";
+    document.getElementById("height-weight").innerHTML += "test";
+    document.getElementById("subjectID").innerHTML += "test";
+    document.getElementById("adminType").innerHTML += "test";
+    document.getElementById("adminSource").innerHTML += "test";
+    document.getElementById("stayPeriod").innerHTML += "test";
+    document.getElementById("insuranceType").innerHTML += "test";
+    document.getElementById("SAP").innerHTML += "test";
+    return;
 }

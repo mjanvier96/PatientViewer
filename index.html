@@ -5,12 +5,10 @@
 	<title>D3 Example</title>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-
-</style>
+    
 </head>
     
-<body>
+<body onload="loadData()">
     <header>
  <ul class="metaData">
   <li id="age">Age: </li>
@@ -30,12 +28,13 @@
     </ul>
 </header>
     <ul class="data">
-  <li id="oxygenSaturation"> <svg width="500" height="500"></svg></li>
-  <li id="bloodPressure"> <svg width="500" height="500"></svg></li>
-  <li id="respiratoryRate"> <svg width="500" height="500"></svg></li>
-  <li id="heartRate"> <svg width="500" height="500"></svg></li>
+  <li id="oxygenSaturation"> <svg width="1000" height="200"></svg></li>
+  <li id="bloodPressure"> <svg width="1000" height="200"></svg></li>
+  <li id="respiratoryRate"> <svg width="1000" height="200"></svg></li>
+  <li id="heartRate"> <svg width="1000" height="200"></svg></li>
         
     </ul>
-<script src="data.js"></script>
+    
+    <script src="data.js"></script>
 </body>
 </html>
