@@ -1,0 +1,47 @@
+ .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+    }
+.zoom {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+header{
+    background-color:dodgerblue
+}
+
+.metaData{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+    min-width: 1000px;
+}
+
+.metaData li {
+    display: inline-block;
+}
+
+.metaData:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+body {
+    margin: auto;
+}
+
+.data{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    min-width: 1000px;
+}
+
+.data li {
+    display: inline-block;
+}
