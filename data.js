@@ -1,6 +1,6 @@
 var svg = d3.selectAll("svg"),
-    margin = {top: 10, right: 20, bottom: 90, left: 40},
-    margin2 = {top: 130, right: 20, bottom: 30, left: 40},
+    margin = {top: 10, right: 150, bottom: 90, left: 40},
+    margin2 = {top: 130, right: 150, bottom: 30, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     height2 = +svg.attr("height") - margin2.top - margin2.bottom;
@@ -140,17 +140,24 @@ function type(d) {
 }
 
 function loadDemographics(){
+    d3.csv("s34_adm.csv", type, function (error, data) {
+    document.getElementById("ethinicty").innerHTML += data[0].ethnicity;
+    document.getElementById("adminType").innerHTML += data[0].admission_type;
+    document.getElementById("adminSource").innerHTML += data[0].admission_location;
+    document.getElementById("stayPeriod").innerHTML += data[0].admittime + " - " + data[0].dischtime;
+    document.getElementById("insuranceType").innerHTML += data[0].insurance; 
+    document.getElementById("diagnosis").innerHTML += data[0].diagnosis;
+    return;
+    });
+    
+    d3.csv("s34_info.csv", type, function (error, data) {
+    document.getElementById("subjectID").innerHTML += data[0].subject_id;  
+    document.getElementById("age").innerHTML += data[0].dob;  
+    document.getElementById("gender").innerHTML += data[0].gender;  
+        return;
+    });
     
     
-    document.getElementById("age").innerHTML += "test";  
-    document.getElementById("gender").innerHTML += "test";
-    document.getElementById("ethinicty").innerHTML += "test";
-    document.getElementById("height-weight").innerHTML += "test";
-    document.getElementById("subjectID").innerHTML += "test";
-    document.getElementById("adminType").innerHTML += "test";
-    document.getElementById("adminSource").innerHTML += "test";
-    document.getElementById("stayPeriod").innerHTML += "test";
-    document.getElementById("insuranceType").innerHTML += "test";
-    document.getElementById("SAP").innerHTML += "test";
+    document.getElementById("SAP").innerHTML += "test"; 
     return;
 }
