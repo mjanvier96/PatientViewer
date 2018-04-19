@@ -5,18 +5,16 @@
 	<title>D3 Example</title>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-
-</style>
+    
 </head>
     
-<body>
+<body onload="loadData()">
     <header>
  <ul class="metaData">
-  <li id="age">Age: </li>
+  <li id="age">Birth: </li>
   <li id="gender">Gender: </li>
   <li id="ethinicty">Ethnicity: </li>
-  <li id="Height/Weight">Height/Weight: </li>
+  <li id="diagnosis">Diagnosis: </li>
      <li id="subjectID">Name: </li>
     </ul>
     
@@ -24,18 +22,33 @@
     <ul class="metaData">
   <li id="adminType">Admission Type: </li>
   <li id="adminSource">Admission Source: </li>
-  <li id="stayPeriod">Start/End of stay: </li>
+  <li id="stayPeriod">Start-End of stay: </li>
   <li id="insuranceType">Insurance type: </li>
   <li id="SAP">SAP Score: </li>
     </ul>
 </header>
     <ul class="data">
-  <li id="oxygenSaturation"> <svg width="500" height="500"></svg></li>
-  <li id="bloodPressure"> <svg width="500" height="500"></svg></li>
-  <li id="respiratoryRate"> <svg width="500" height="500"></svg></li>
-  <li id="heartRate"> <svg width="500" height="500"></svg></li>
         
+          <li id="heartRate"> <svg id= "heartRateGraph" width="1080" height="200">
+      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Heart Rate:</text>
+      </svg></li>
+
+  <li id="respiratoryRate"> <svg id="respiratoryRateGraph" width="1080" height="200">
+      
+      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Respiratory Rate:</text>
+      </svg></li>
+
+          <li id="bloodPressure"> <svg id="bloodPressureGraph" width="1080" height="200">
+      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Blood Pressure:</text>
+      </svg></li>
+        
+<li id="oxygenSaturation">
+      <svg id="oxygenSaturationGraph"width="1080" height="200">
+      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Oxygen Saturation:</text></svg>
+
+    </li>
     </ul>
-<script src="data.js"></script>
+    
+    <script src="data.js"></script>
 </body>
 </html>

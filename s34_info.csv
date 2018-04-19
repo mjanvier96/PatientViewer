@@ -1,0 +1,2 @@
+row_id,subject_id,gender,dob,dod,dod_hosp,dod_ssn,expire_flag
+30,34,M,1886-07-18 00:00:00,2192-01-30 00:00:00,,2192-01-30 00:00:00,1
