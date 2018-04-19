@@ -10,7 +10,17 @@
     
 <body onload="loadData()">
     <header>
- <ul class="metaData">
+        
+        <ul id="navBar">
+  <li><a href="index.html">ICU Monitor</a></li>
+  <li><a href="index.html">Lab and Input Timeline</a></li>
+  <li><a href="index.html">TODO</a></li>
+  <li><a href="index.html">TODO</a></li>
+</ul>
+</header>
+    
+<section id="demoData">
+<ul class="demoData">
   <li id="age">Birth: </li>
   <li id="gender">Gender: </li>
   <li id="ethinicty">Ethnicity: </li>
@@ -19,32 +29,40 @@
     </ul>
     
     
-    <ul class="metaData">
+    <ul class="demoData">
   <li id="adminType">Admission Type: </li>
   <li id="adminSource">Admission Source: </li>
   <li id="stayPeriod">Start-End of stay: </li>
   <li id="insuranceType">Insurance type: </li>
   <li id="SAP">SAP Score: </li>
     </ul>
-</header>
+    </section>
+    
+    
     <ul class="data">
         
-          <li id="heartRate"> <svg id= "heartRateGraph" width="1080" height="200">
-      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Heart Rate:</text>
+          <li id="heartRate"> <svg id= "heartRateGraph" width="1900" height="200" align="center">
+      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="blue">Heart Rate:</text>
+    <text id="heartRateValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="blue"></text>
+              
       </svg></li>
 
-  <li id="respiratoryRate"> <svg id="respiratoryRateGraph" width="1080" height="200">
+  <li id="respiratoryRate"> <svg id="respiratoryRateGraph" width="1900" height="200" align="center">
       
-      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Respiratory Rate:</text>
+      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="blue">Respiratory Rate:</text>
+      <text id="respiratoryRateValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="blue"></text>
       </svg></li>
 
-          <li id="bloodPressure"> <svg id="bloodPressureGraph" width="1080" height="200">
-      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Blood Pressure:</text>
+          <li id="bloodPressure"> <svg id="bloodPressureGraph" width="1900" height="200" align="center">
+      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="blue">Blood Pressure:</text>
+              <text id="bloodPressureValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="blue"></text>
       </svg></li>
         
 <li id="oxygenSaturation">
-      <svg id="oxygenSaturationGraph"width="1080" height="200">
-      <text x="940" y="20" font-family="sans-serif" font-size="16px" fill="blue">Oxygen Saturation:</text></svg>
+      <svg id="oxygenSaturationGraph"width="1900" height="200" align="center">
+      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="blue">Oxygen Saturation:</text>
+    <text id="oxygenSaturationValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="blue"></text>
+    </svg>
 
     </li>
     </ul>

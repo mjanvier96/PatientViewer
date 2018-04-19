@@ -120,6 +120,8 @@ function loadHeartRate(){
 
     d3.csv("s34_heartRateData.csv", type, function (error, data) {
         if (error) throw error;
+        
+        document.getElementById("heartRateValue").innerHTML += data[data.length-1].bpm;
 
         x.domain(d3.extent(data, function(d) { return d.date; }));
         y.domain([0, d3.max(data, function (d) { return d.bpm; })]);
@@ -145,7 +147,6 @@ function loadHeartRate(){
             .datum(data)
             .attr("class", "line")
             .attr("d", line2);
-
 
         context.append("g")
             .attr("class", "axis axis--x")
@@ -257,6 +258,8 @@ function loadRespiratoryRate(){
 
     d3.csv("s34_respiratoryRateData.csv", type, function (error, data) {
         if (error) throw error;
+        
+        document.getElementById("respiratoryRateValue").innerHTML += data[data.length-1].value;
 
         x.domain(d3.extent(data, function(d) { return d.charttime; }));
         y.domain([0, d3.max(data, function (d) { return d.value; })]);
@@ -394,6 +397,8 @@ function loadBloodPressure(){
 
     d3.csv("s34_bloodPressureData.csv", type, function (error, data) {
         if (error) throw error;
+        
+        document.getElementById("bloodPressureValue").innerHTML += data[data.length-1].value;
 
         x.domain(d3.extent(data, function(d) { return d.charttime; }));
         y.domain([0, d3.max(data, function (d) { return d.value; })]);
@@ -532,6 +537,8 @@ function loadOxygenSaturation(){
 
     d3.csv("s34_oxygenSaturationData.csv", type, function (error, data) {
         if (error) throw error;
+        
+        document.getElementById("oxygenSaturationValue").innerHTML += data[data.length-1].value;
 
         x.domain(d3.extent(data, function(d) { return d.charttime; }));
         y.domain([0, d3.max(data, function (d) { return d.value; })]);
