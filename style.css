@@ -1,3 +1,7 @@
+body {
+    background-color: black;
+}
+
 #navBar:after {
     content: '';
     display: inline-block;
@@ -6,8 +10,8 @@
 
 #navBar{
     list-style-type: none;
-    margin-left: 1%;
-    margin-right: 1%;
+    margin-left: 25%;
+    margin-right: 25%;
     margin-bottom: 0;
     margin-top: 0;
     padding: 0;
@@ -76,3 +80,15 @@ body {
 .data li {
     display: inline-block;
 }
+
+.axis line{
+  stroke: white;
+}
+
+.axis path{
+  stroke: white;
+}
+
+.axis text{
+  fill: white;
+}  
