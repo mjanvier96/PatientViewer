@@ -1,70 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>D3 Example</title>
-	<script src="https://d3js.org/d3.v4.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    
-</head>
-    
-<body onload="loadData()">
-    <header>
-        
-        <ul id="navBar">
-  <li><a href="index.html">ICU Monitor</a></li>
-  <li><a href="timeline.html">Lab and Input Timeline</a></li>
-</ul>
-</header>
-    
-<section id="demoData">
-<ul class="demoData">
-  <li id="age">Birth: </li>
-  <li id="gender">Gender: </li>
-  <li id="ethinicty">Ethnicity: </li>
-  <li id="diagnosis">Diagnosis: </li>
-     <li id="subjectID">Name: </li>
-    </ul>
-    
-    
-    <ul class="demoData">
-  <li id="adminType">Admission Type: </li>
-  <li id="adminSource">Admission Source: </li>
-  <li id="stayPeriod">Start-End of stay: </li>
-  <li id="insuranceType">Insurance type: </li>
-  <li id="SAP">SAP Score: </li>
-    </ul>
-    </section>
-    
-    
-    <ul class="data">
-        
-          <li id="heartRate"> <svg id= "heartRateGraph" width="1900" height="200" align="center">
-      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Heart Rate:</text>
-    <text id="heartRateValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
-              
-      </svg></li>
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Example</title>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
 
-  <li id="respiratoryRate"> <svg id="respiratoryRateGraph" width="1900" height="200" align="center">
-      
-      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Respiratory Rate:</text>
-      <text id="respiratoryRateValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
-      </svg></li>
+    </head>
 
-          <li id="bloodPressure"> <svg id="bloodPressureGraph" width="1900" height="200" align="center">
-      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Blood Pressure:</text>
-              <text id="bloodPressureValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
-      </svg></li>
-        
-<li id="oxygenSaturation">
-      <svg id="oxygenSaturationGraph"width="1900" height="200" align="center">
-      <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Oxygen Saturation:</text>
-    <text id="oxygenSaturationValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
-    </svg>
+    <body id="main" onload="loadData()">
+        <section id="demoData">
+            <ul class="demoData">
+                <span class="openbtn" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+                <li id="age">Birth: </li>
+                <li id="gender">Gender: </li>
+                <li id="ethinicty">Ethnicity: </li>
+                <li id="diagnosis">Diagnosis: </li>
+                <li id="subjectID">Name: </li>
+            </ul>
 
-    </li>
-    </ul>
-    
-    <script src="data.js"></script>
-</body>
+            <ul class="demoData">
+                <li id="adminType">Admission Type: </li>
+                <li id="adminSource">Admission Source: </li>
+                <li id="stayPeriod">Start-End of stay: </li>
+                <li id="insuranceType">Insurance type: </li>
+                <li id="SAP">SAP Score: </li>
+            </ul>
+        </section>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a class="active" href="index.html">ICU Monitor</a>
+            <a href="timeline.html">Lab/Input Timeline</a>
+            <input type="text" placeholder="Search..">
+        </div>
+
+
+        <ul class="data">
+
+            <li id="heartRate"> <svg id= "heartRateGraph" width="1900" height="200" align="center">
+                <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Heart Rate:</text>
+                <text id="heartRateValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
+
+                </svg></li>
+
+            <li id="respiratoryRate"> <svg id="respiratoryRateGraph" width="1900" height="200" align="center">
+
+                <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Respiratory Rate:</text>
+                <text id="respiratoryRateValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
+                </svg></li>
+
+            <li id="bloodPressure"> <svg id="bloodPressureGraph" width="1900" height="200" align="center">
+                <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Blood Pressure:</text>
+                <text id="bloodPressureValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
+                </svg></li>
+
+            <li id="oxygenSaturation">
+                <svg id="oxygenSaturationGraph"width="1900" height="200" align="center">
+                    <text x="1750" y="20" font-family="sans-serif" font-size="16px" fill="white">Oxygen Saturation:</text>
+                    <text id="oxygenSaturationValue" x="1775" y="60" font-family="sans-serif" font-size="36px" fill="green"></text>
+                </svg>
+
+            </li>
+        </ul>
+
+        <script src="data.js"></script>
+    </body>
 </html>

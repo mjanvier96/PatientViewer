@@ -1,3 +1,13 @@
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+
 function loadData(){
     loadDemographics();
     loadHeartRate();
@@ -28,8 +38,6 @@ function loadDemographics(){
     document.getElementById("SAP").innerHTML += "test"; 
     return;
 }
-
-
 
 function loadHeartRate(){
     var svg = d3.select("#heartRateGraph"),
