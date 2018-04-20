@@ -1,8 +1,31 @@
- .line {
+#navBar:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+#navBar{
+    list-style-type: none;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0;
+    text-align: justify;
+    min-width: 1000px;
+}
+
+#navBar li {
+    display: inline-block;
+}
+
+
+.line {
         fill: none;
         stroke: steelblue;
         stroke-width: 1.5px;
     }
+
 .zoom {
   cursor: move;
   fill: none;
@@ -10,22 +33,30 @@
 }
 
 header{
-    background-color:dodgerblue
+    background-color:grey
 }
 
-.metaData{
+#demoData{
+background-color:dodgerblue;
+}
+
+.demoData{
+    
     list-style-type: none;
-    margin: 0;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 0;
+    margin-top: 0;
     padding: 0;
     text-align: justify;
     min-width: 1000px;
 }
 
-.metaData li {
+.demoData li {
     display: inline-block;
 }
 
-.metaData:after{
+.demoData:after{
     content: '';
     display: inline-block;
     width: 100%;
