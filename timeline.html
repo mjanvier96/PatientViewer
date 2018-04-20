@@ -16,6 +16,16 @@
 </head>
 
 <body>
+    
+<header>
+        
+<ul id="navBar">
+  <li><a href="index.html">ICU Monitor</a></li>
+  <li><a href="timeline.html">Lab and Input Timeline</a></li>
+  <li><a href="index.html">TODO</a></li>
+  <li><a href="index.html">TODO</a></li>
+</ul>
+</header>
 
 <div id="timeline"></div>
 
@@ -76,24 +86,24 @@
 
     // Define domElement and sourceFile
     var domElement = "#timeline";
-    var sourceFile = "s34_inputevents_mv_144319.csv";
+    var sourceFile1 = "s34_inputevents_mv_144319.csv";
+    var sourceFile2 = "s34_labevents_144319.csv";
 
     // Read in the data and construct the timeline
-    d3.csv(sourceFile, function(dataset) {
+    d3.csv(sourceFile1, function(dataset1) {
+         d3.csv(sourceFile2, function(dataset2) {
 
         timeline(domElement)
-            .data(dataset)
+            .data(dataset1, dataset2)
             .band("mainBand", 0.82)
             .band("naviBand", 0.08)
             .xAxis("mainBand")
             .xAxis("naviBand")
-            //.tooltips("mainBand")
-            //.labels("mainBand")
-            //.labels("naviBand")
-            //.brush("naviBand", ["mainBand"])
+            .tooltips("mainBand")
+            .brush("naviBand", ["mainBand"])
             .redraw();
 
-    });
+    })});
 
 </script>
 

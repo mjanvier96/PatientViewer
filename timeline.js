@@ -7,14 +7,15 @@ function timeline(domElement) {
 
     // chart geometry
     var margin = {top: 20, right: 20, bottom: 20, left: 20},
-        outerWidth = 960,
-        outerHeight = 500,
+        outerWidth = 1900,
+        outerHeight = 800,
         width = outerWidth - margin.left - margin.right,
         height = outerHeight - margin.top - margin.bottom;
 
     // global timeline variables
     var timeline = {},   // The timeline
         data = {},       // Container for the data
+        data2 = {},
         components = [], // All the components of the timeline for redrawing
         bandGap = 25,    // Arbitray gap between to consecutive bands
         bands = {},      // Registry for all the bands in the timeline
@@ -22,6 +23,7 @@ function timeline(domElement) {
         bandNum = 0;     // Count of bands for ids
     
     var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
+    var parseDate2 = d3.timeParse("%m/%d/%Y %H:%M");
 
     // Create svg element
     var svg = d3.select(domElement).append("svg")
@@ -52,20 +54,21 @@ function timeline(domElement) {
     // data
     //
 
-    timeline.data = function(items) {
+    timeline.data = function(items, items2, items3) {
 
         var tracks = [];
 
         data.items = items;
+        data2.items = items2;
 
         function compareDescending(item1, item2) {
             // Every item must have two fields: 'start' and 'end'.
-            var result = item1.start - item2.start;
+            var result = item1.starttime - item2.starttime;
             // later first
             if (result < 0) { return 1; }
             if (result > 0) { return -1; }
             // shorter first
-            result = item2.end - item1.end;
+            result = item2.endtime - item1.endtime;
             if (result < 0) { return 1; }
             if (result > 0) { return -1; }
             return 0;
@@ -78,20 +81,10 @@ function timeline(domElement) {
                 // older items end deeper
                 items.forEach(function (item) {
                     for (i = 0, track = 0; i < tracks.length; i++, track++) {
-                        if (item.end < tracks[i]) { break; }
+                        if (item.endtime < tracks[i]) { break; }
                     }
                     item.track = track;
-                    tracks[track] = item.start;
-                });
-            }
-            function sortForward() {
-                // younger items end deeper
-                items.forEach(function (item) {
-                    for (i = 0, track = 0; i < tracks.length; i++, track++) {
-                        if (item.start > tracks[i]) { break; }
-                    }
-                    item.track = track;
-                    tracks[track] = item.end;
+                    tracks[track] = item.starttime;
                 });
             }
 
@@ -106,14 +99,30 @@ function timeline(domElement) {
             //console.log(item.starttime);
             //console.log(item.endtime);
             item.instant = false;
+            item.whichData = 1;
         });
+        
+        data2.items.forEach(function (item){
+            item.starttime = parseDate2(item.charttime);
+            item.endtime = item.starttime
+            item.instant = true;
+            item.whichData = 2;
+        });
+        
 
+        
+        console.log(data.items);
+        console.log(data2.items);
+        //console.log(data.items);
+        
+        data.items = data.items.concat(data2.items);
+        console.log(data.items);
         calculateTracks(data.items);
         data.nTracks = tracks.length;
         data.minDate = d3.min(data.items, function (d) { return d.starttime; });
-        data.maxDate = d3.max(data.items, function (d) { return d.endtime; });
-        //console.log(data.minDate);
-        //console.log(data.maxDate);
+        data.maxDate = d3.max(data.items, function (d) { return d3.timeHour.offset(d.endtime, 12); });//12 hour buffer
+        console.log(data.minDate);
+        console.log(data.maxDate);
         return timeline;
     };
 
@@ -141,7 +150,7 @@ function timeline(domElement) {
         band.xScale = d3.scaleTime()
             .domain([data.minDate, data.maxDate])
             .range([0, band.w]);
-
+        
         band.yScale = function (track) {
             return band.trackOffset + track * band.trackHeight;
         };
@@ -183,6 +192,7 @@ function timeline(domElement) {
             .attr("x", 15)
             .attr("y", 10)
             .text(function (d) { return d.label; });
+        console.log(instants);
 
         band.addActions = function(actions) {
             // actions - array: [[trigger, function], ...]
@@ -195,7 +205,16 @@ function timeline(domElement) {
             items
                 .attr("x", function (d) { return band.xScale(d.starttime);})
                 .attr("width", function (d) {
-                    return band.xScale(d.endtime) - band.xScale(d.starttime); });
+                
+                
+                    if(d.instant){
+                        //return band.xScale(d.endtime);
+                    } else {
+                        return band.xScale(d.endtime) - band.xScale(d.starttime); 
+                    }
+                
+                
+                    });
             band.parts.forEach(function(part) { part.redraw(); })
         };
 
@@ -225,9 +244,9 @@ function timeline(domElement) {
         function getHtml(element, d) {
             var html;
             if (element.attr("class") == "interval") {
-                html = d.label + "<br>" + toYear(d.start) + " - " + toYear(d.end);
+                html = d.label + "<br>" + d.starttime + " - " + d.endtime;
             } else {
-                html = d.label + "<br>" + toYear(d.start);
+                html = d.label + "<br>" + d.starttime;
             }
             return html;
         }
@@ -263,7 +282,6 @@ function timeline(domElement) {
     timeline.xAxis = function (bandName) {
 
         var band = bands[bandName];
-        console.log(bands);
         var axis = d3.axisBottom(band.xScale);
             //.tickSize(6, 0)
             //.tickFormat(function (d) { d; });
@@ -286,23 +304,23 @@ function timeline(domElement) {
     //
     // brush
     //
-
+    
+    // band.xScale
     timeline.brush = function (bandName, targetNames) {
 
         var band = bands[bandName];
-
-        var brush = d3.svg.brush()
-            .x(band.xScale.range([0, band.w]))
-            .on("brush", function() {
-                var domain = brush.empty()
-                    ? band.xScale.domain()
-                    : brush.extent();
+        
+         var brush = d3.brushX()
+         .extent([[band.xScale.range()[0], 0], [band.xScale.range()[1], band.w]])
+        .on("brush end", function() {
+                var s = d3.event.selection || band.xScale.range();
+                var domain = s.map(band.xScale.invert, band.xScale);
                 targetNames.forEach(function(d) {
                     bands[d].xScale.domain(domain);
                     bands[d].redraw();
                 });
             });
-
+        
         var xBrush = band.g.append("svg")
             .attr("class", "x brush")
             .call(brush);
