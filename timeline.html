@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="keywords" lang="de" content="Zeitleiste, Zeitlinie, Zeitkarte, Geschichte, Chronologie">
-    <meta name="keywords" lang="en" content="Timeline, Timemap, History, Chronology">
-    <title>Timeline - Proof-of-concept</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="keywords" lang="de" content="Zeitleiste, Zeitlinie, Zeitkarte, Geschichte, Chronologie">
+        <meta name="keywords" lang="en" content="Timeline, Timemap, History, Chronology">
+        <title>Timeline - Proof-of-concept</title>
 
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
 
-    <!-- Store these two files in your application directory or on your path. -->
-    <script src="timeline.js"></script>
-    <link href="timeline.css" rel="stylesheet" type="text/css" />
+        <!-- Store these two files in your application directory or on your path. -->
+        <script src="timeline.js"></script>
+        <link href="timeline.css" rel="stylesheet" type="text/css" />
 
-</head>
+    </head>
 
-<body>
-    
-<div id="mySidenav" class="sidenav">
+    <body>
+
+        <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="index.html">ICU Monitor</a>
             <a class="active" href="timeline.html">Lab/Input Timeline</a>
         </div>
-    
-    <span class="openbtn" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
 
-<div id="timeline"></div>
+        <span class="openbtn" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
 
-<script>
+        <div id="timeline"></div>
 
-    /*  You need a domElement, a sourceFile and a timeline.
+        <script>
+
+            /*  You need a domElement, a sourceFile and a timeline.
 
         The domElement will contain your timeline.
         Use the CSS convention for identifying elements,
@@ -82,29 +82,29 @@
         - rearrange the definitions of the components.
     */
 
-    // Define domElement and sourceFile
-    var domElement = "#timeline";
-    var sourceFile1 = "s34_inputevents_mv_144319.csv";
-    var sourceFile2 = "s34_labevents_144319.csv";
+            // Define domElement and sourceFile
+            var domElement = "#timeline";
+            var sourceFile1 = "s34_inputevents_mv_144319.csv";
+            var sourceFile2 = "s34_labevents_144319.csv";
 
-    // Read in the data and construct the timeline
-    d3.csv(sourceFile1, function(dataset1) {
-         d3.csv(sourceFile2, function(dataset2) {
+            // Read in the data and construct the timeline
+            d3.csv(sourceFile1, function(dataset1) {
+                d3.csv(sourceFile2, function(dataset2) {
 
-        timeline(domElement)
-            .data(dataset1, dataset2)
-            .band("mainBand", 0.82)
-            .band("naviBand", 0.08)
-            .xAxis("mainBand")
-            .xAxis("naviBand")
-            .tooltips("mainBand")
-            .brush("naviBand", ["mainBand"])
-            .redraw();
+                    timeline(domElement)
+                        .data(dataset1, dataset2)
+                        .band("mainBand", 0.82)
+                        .band("naviBand", 0.08)
+                        .xAxis("mainBand")
+                        .xAxis("naviBand")
+                        .tooltips("mainBand")
+                        .brush("naviBand", ["mainBand"])
+                        .redraw();
 
-    })});
+                })});
 
-</script>
+        </script>
 
-</body>
+    </body>
 
 </html>

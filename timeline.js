@@ -31,18 +31,18 @@ function timeline(domElement) {
         bands = {},      // Registry for all the bands in the timeline
         bandY = 0,       // Y-Position of the next band
         bandNum = 0;     // Count of bands for ids
-    
+
     var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
     var parseDate2 = d3.timeParse("%m/%d/%Y %H:%M");
 
     // Create svg element
     var svg = d3.select(domElement).append("svg")
-        .attr("class", "svg")
-        .attr("id", "svg")
-        .attr("width", outerWidth)
-        .attr("height", outerHeight)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top +  ")");
+    .attr("class", "svg")
+    .attr("id", "svg")
+    .attr("width", outerWidth)
+    .attr("height", outerHeight)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top +  ")");
 
     svg.append("clipPath")
         .attr("id", "chart-area")
@@ -51,13 +51,13 @@ function timeline(domElement) {
         .attr("height", height);
 
     var chart = svg.append("g")
-            .attr("class", "chart")
-            .attr("clip-path", "url(#chart-area)" );
+    .attr("class", "chart")
+    .attr("clip-path", "url(#chart-area)" );
 
     var tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("visibility", "visible");
+    .append("div")
+    .attr("class", "tooltip")
+    .style("visibility", "visible");
 
     //--------------------------------------------------------------------------
     //
@@ -111,20 +111,20 @@ function timeline(domElement) {
             item.instant = false;
             item.whichData = 1;
         });
-        
+
         data2.items.forEach(function (item){
             item.starttime = parseDate2(item.charttime);
             item.endtime = item.starttime
             item.instant = true;
             item.whichData = 2;
         });
-        
 
-        
+
+
         console.log(data.items);
         console.log(data2.items);
         //console.log(data.items);
-        
+
         data.items = data.items.concat(data2.items);
         console.log(data.items);
         calculateTracks(data.items);
@@ -153,14 +153,14 @@ function timeline(domElement) {
         // Prevent tracks from getting too high
         band.trackHeight = Math.min((band.h - band.trackOffset) / data.nTracks, 20);
         band.itemHeight = band.trackHeight * 0.8,
-        band.parts = [],
-        band.instantWidth = 100; // arbitray value
+            band.parts = [],
+            band.instantWidth = 100; // arbitray value
 
-        
+
         band.xScale = d3.scaleTime()
             .domain([data.minDate, data.maxDate])
             .range([0, band.w]);
-        
+
         band.yScale = function (track) {
             return band.trackOffset + track * band.trackHeight;
         };
@@ -176,11 +176,11 @@ function timeline(domElement) {
 
         // Items
         var items = band.g.selectAll("g")
-            .data(data.items)
-            .enter().append("svg")
-            .attr("y", function (d) { return band.yScale(d.track); })
-            .attr("height", band.itemHeight)
-            .attr("class", function (d) { return d.instant ? "part instant" : "part interval";});
+        .data(data.items)
+        .enter().append("svg")
+        .attr("y", function (d) { return band.yScale(d.track); })
+        .attr("height", band.itemHeight)
+        .attr("class", function (d) { return d.instant ? "part instant" : "part interval";});
 
         var intervals = d3.select("#band" + bandNum).selectAll(".interval");
         intervals.append("rect")
@@ -215,16 +215,16 @@ function timeline(domElement) {
             items
                 .attr("x", function (d) { return band.xScale(d.starttime);})
                 .attr("width", function (d) {
-                
-                
-                    if(d.instant){
-                        //return band.xScale(d.endtime);
-                    } else {
-                        return band.xScale(d.endtime) - band.xScale(d.starttime); 
-                    }
-                
-                
-                    });
+
+
+                if(d.instant){
+                    //return band.xScale(d.endtime);
+                } else {
+                    return band.xScale(d.endtime) - band.xScale(d.starttime); 
+                }
+
+
+            });
             band.parts.forEach(function(part) { part.redraw(); })
         };
 
@@ -264,11 +264,11 @@ function timeline(domElement) {
         function showTooltip (d) {
 
             var x = event.pageX < band.x + band.w / 2
-                    ? event.pageX + 10
-                    : event.pageX - 110,
+            ? event.pageX + 10
+            : event.pageX - 110,
                 y = event.pageY < band.y + band.h / 2
-                    ? event.pageY + 30
-                    : event.pageY - 30;
+            ? event.pageY + 30
+            : event.pageY - 30;
 
             tooltip
                 .html(getHtml(d3.select(this), d))
@@ -293,12 +293,12 @@ function timeline(domElement) {
 
         var band = bands[bandName];
         var axis = d3.axisBottom(band.xScale);
-            //.tickSize(6, 0)
-            //.tickFormat(function (d) { d; });
+        //.tickSize(6, 0)
+        //.tickFormat(function (d) { d; });
 
         var xAxis = chart.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0," + (band.y + band.h)  + ")");
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + (band.y + band.h)  + ")");
 
         xAxis.redraw = function () {
             xAxis.call(axis);
@@ -314,26 +314,26 @@ function timeline(domElement) {
     //
     // brush
     //
-    
+
     // band.xScale
     timeline.brush = function (bandName, targetNames) {
 
         var band = bands[bandName];
-        
-         var brush = d3.brushX()
-         .extent([[band.xScale.range()[0], 0], [band.xScale.range()[1], band.w]])
+
+        var brush = d3.brushX()
+        .extent([[band.xScale.range()[0], 0], [band.xScale.range()[1], band.w]])
         .on("brush end", function() {
-                var s = d3.event.selection || band.xScale.range();
-                var domain = s.map(band.xScale.invert, band.xScale);
-                targetNames.forEach(function(d) {
-                    bands[d].xScale.domain(domain);
-                    bands[d].redraw();
-                });
+            var s = d3.event.selection || band.xScale.range();
+            var domain = s.map(band.xScale.invert, band.xScale);
+            targetNames.forEach(function(d) {
+                bands[d].xScale.domain(domain);
+                bands[d].redraw();
             });
-        
+        });
+
         var xBrush = band.g.append("svg")
-            .attr("class", "x brush")
-            .call(brush);
+        .attr("class", "x brush")
+        .call(brush);
 
         xBrush.selectAll("rect")
             .attr("y", 4)
