@@ -53,6 +53,7 @@ body {
     border: none;
     margin-top: 8px;
     margin-right: 16px;
+    margin-bottom: 6px;
     font-size: 17px;
 }
 
@@ -65,9 +66,9 @@ body {
     /* Remove default list styling */
     height:40%;
     list-style-type: none;
-    margin: 0;
+    margin:0;
     overflow-y:scroll;
-    padding: 6px;
+    overflow-x:scroll;
     margin-top: 8px;
     margin-right: 16px;
 }
