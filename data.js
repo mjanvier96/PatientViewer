@@ -60,8 +60,56 @@ function loadDemographics(){
     });
 
 
-    document.getElementById("SAP").innerHTML += "test"; 
+    document.getElementById("SAP").innerHTML += "20%"; 
+    document.getElementById("SAP").setAttribute("text-color", "green");
     return;
+}
+
+function getMedian(values) {
+
+    values.sort( function(a,b) {return a - b;} );
+
+    var half = Math.floor(values.length/2);
+
+    if(values.length % 2)
+        return values[half];
+    else
+        return (values[half-1] + values[half]) / 2.0;
+}
+
+
+function upperQuartile(sample){
+    var sampleVals = [];
+    for(var i = 0; i < sample.length; i++){
+        sampleVals.push(sample[i].value);
+    }
+    var median = getMedian(sampleVals);
+    var _secondHalf = sampleVals.filter(function(f){ return f >= median });
+    var _75percent = getMedian(_secondHalf);
+    var upper = sampleVals.filter(function(f){ return f >= _75percent });
+    var sum = 0;
+    for(var i = 0; i < upper.length; i++){
+        sum += parseInt( upper[i], 10 );
+    }
+    console.log(sum / upper.length);
+        return sum / upper.length;
+}
+
+function lowerQuartile(sample){
+    var sampleVals = [];
+    for(var i = 0; i < sample.length; i++){
+        sampleVals.push(sample[i].value);
+    }
+    var median = getMedian(sampleVals);
+    var _secondHalf = sampleVals.filter(function(f){ return f < median });
+    var _25percent = getMedian(_secondHalf);
+    var lower = sampleVals.filter(function(f){ return f < _25percent });
+    var sum = 0;
+    for(var i = 0; i < lower.length; i++){
+        sum += parseInt( lower[i], 10 );
+    }
+    console.log(sum / lower.length);
+        return sum / lower.length;
 }
 
 function loadChart(itemid){
@@ -179,6 +227,17 @@ function loadChart(itemid){
         document.getElementById(itemid + "Label").innerHTML += data[0].label + ":";
         document.getElementById(itemid + "Value").innerHTML += data[data.length-1].value;
         //console.log(data);
+        
+        var LQ = lowerQuartile(data);
+        var UQ = upperQuartile(data);
+        
+        var lineUpperQuartile = d3.line()
+        .x(function (d) { return x(d.charttime); })
+        .y(function (d) { return y(UQ); });
+    
+        var lineLowerQuartile = d3.line()
+        .x(function (d) { return x(d.charttime); })
+        .y(function (d) { return y(LQ); });
 
         x.domain(d3.extent(data, function(d) { return d.charttime; }));
         y.domain([0, d3.max(data, function (d) { return d.value; })]);
@@ -194,12 +253,26 @@ function loadChart(itemid){
         focus.append("g")
             .attr("class", "axis axis--y")
             .call(yAxis);
-
+        
         Line_chart.append("path")
             .datum(data)
             .attr("class", "line")
             .attr("d", line);
 
+        Line_chart.append("path")
+            .datum(data)
+            .style("stroke", "red")
+            .style("stroke-dasharray", ("3, 6"))
+            .attr("class", "line")
+            .attr("d", lineUpperQuartile);
+        
+        Line_chart.append("path")
+            .datum(data)
+            .style("stroke", "red")
+            .style("stroke-dasharray", ("3, 6"))
+            .attr("class", "line")
+            .attr("d", lineLowerQuartile);
+        
         context.append("path")
             .datum(data)
             .attr("class", "line")
